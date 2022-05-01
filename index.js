@@ -1,3 +1,4 @@
+var storelist = [];
 var date = new Date();
 var option = {
     weekday: "long",
@@ -6,6 +7,22 @@ var option = {
 
 };
 document.getElementById("date").innerHTML = date.toLocaleDateString("en-us", option);
+if (localStorage.getItem('prelist')) {
+    var li = JSON.parse(localStorage.getItem('prelist'))
+    for (var i = 0; i < li.length; i++) {
+        var div = document.createElement("div");
+        div.classList.add("box");
+        var item = document.getElementsByClassName("list")[0];
+        var newitem = document.createElement("p");
+        var chck = document.createElement("input");
+        chck.type = "checkbox";
+        newitem.innerHTML = li[i];
+        div.appendChild(chck);
+        div.appendChild(newitem)
+
+        item.appendChild(div);
+    }
+}
 function func() {
     if (input.value === "") {
         alert("Please enter something to add");
@@ -22,6 +39,8 @@ function func() {
         div.appendChild(newitem)
 
         item.appendChild(div);
+        storelist.push(document.getElementById("newelement").value);
+        localStorage.setItem('prelist', JSON.stringify(storelist));
         document.getElementById("newelement").value = "";
     }
 
@@ -38,13 +57,6 @@ input.addEventListener("keypress", function (event) {
             alert("Please enter something to add");
         }
     }
-    fu;
+
 
 });
-function fu() {
-    console.log("its work");
-}
-window.onbeforeunload = function () {
-    alert("Do you really want to exit");
-
-};
